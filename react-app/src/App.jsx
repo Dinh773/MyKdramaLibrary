@@ -3,6 +3,8 @@ import Header from './Component/Header.jsx'
 import Search from './Component/Search.jsx'
 
 function App() {
+  const API_BASE_URL = 'https://mykdramalibrary.onrender.com'
+
   const [searchTerm, setSearchTerm] = useState('')
   const [moviesList, setMoviesList] = useState([])
   const [sortBy, setSortBy] = useState('popularity.desc')
@@ -13,7 +15,7 @@ function App() {
   // 1. Get Kdrama list from TMDB API
   const fetchMovies = async (query = '') => {
     try {
-      const endpoint = `http://localhost:5000/api/dramas?query=${encodeURIComponent(query)}&sortBy=${sortBy}`
+      const endpoint = `${API_BASE_URL}/api/dramas?query=${encodeURIComponent(query)}&sortBy=${sortBy}`
       const response = await fetch(endpoint)
       if (!response.ok) throw new Error('Server error when fetching dramas')
 
@@ -27,7 +29,7 @@ function App() {
   // 2. Get Watchlist from MongoDB
   const fetchWatchlist = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/watchlist')
+      const res = await fetch(`${API_BASE_URL}/api/watchlist`)
       if (res.ok) {
         const data = await res.json()
         setWatchlist(data)
@@ -40,7 +42,7 @@ function App() {
   // 3. Add a drama to Watchlist
   const handleAddToWatchlist = async (drama) => {
     try {
-      const response = await fetch('http://localhost:5000/api/watchlist', {
+      const response = await fetch(`${API_BASE_URL}/api/watchlist`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -67,7 +69,7 @@ function App() {
   // 4. Delete a drama from Watchlist
   const handleRemoveFromWatchlist = async (dramaId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/watchlist/${dramaId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/watchlist/${dramaId}`, {
         method: 'DELETE',
       })
       if (res.ok) {
