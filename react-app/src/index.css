@@ -14,7 +14,8 @@
   --heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
-  font: 18px/145% var(--sans);
+  /* Giảm font cơ sở từ 18px xuống 15px */
+  font: 16px/145% var(--sans);
   letter-spacing: 0.18px;
   color: var(--text);
   background: var(--bg);
@@ -24,7 +25,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   @media (max-width: 1024px) {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
@@ -34,11 +35,10 @@ body {
 }
 
 #root {
-  padding: 0 20px;
-  max-width: 100%;
+  padding: 0 16px;
+  max-width: 1200px; /* Khóa giới hạn độ rộng tối đa để màn hình to không bị bè ngang */
   margin: 0 auto;
   text-align: center;
-  border-inline: 1px solid var(--border);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -48,51 +48,63 @@ body {
 h1,
 h2 {
   font-family: var(--heading);
-  font-weight: 500;
   color: var(--text-h);
 }
 
+/* Thu nhỏ tiêu đề h1 từ 60px -> 42px */
 h1 {
-  font-size: 60px;
+  font-size: 50px;
   font-weight: 700;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
+  letter-spacing: -1px;
+  margin: 24px 0 16px;
+
   @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
+    font-size: 30px;
+    margin: 16px 0;
   }
 }
+
 h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: -0.2px;
   margin: 0 0 8px;
+
   @media (max-width: 1024px) {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
+
 p {
   margin: 0;
 }
 
+/* Thu gọn thanh tìm kiếm */
 .search {
   background: var(--accent-bg);
-  padding: 12px 25px;
-  border-radius: 25px;
-  border: 2px solid transparent;
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: 1px solid transparent;
   width: fit-content;
   vertical-align: middle;
-  min-width: 350px;
+  min-width: 280px;
+  @media (max-width: 500px) {
+    min-width: 100px;
+  }
 }
 
 .search-input {
   background: transparent;
   border: none;
   outline: none;
-  margin-left: 10px;
-  font-size: 20px;
+  margin-left: 8px;
+  font-size: 16px;
   color: var(--text);
-  min-width: 350px;
+  min-width: 260px;
+  @media (max-width: 500px) {
+    min-width: 100px;
+    font-size: 15px;
+  }
 }
 
 .main-wrapper {
@@ -100,8 +112,8 @@ p {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 32px 20px;
-  gap: 36px; 
+  padding: 20px 16px;
+  gap: 24px;
   box-sizing: border-box;
 }
 
@@ -109,13 +121,14 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   width: 100%;
 }
 
 .search-preview {
-  margin: 8px 0 0;
+  margin: 4px 0 0;
   font-weight: 400;
+  font-size: 14px;
   color: var(--text);
 }
 
@@ -123,24 +136,24 @@ p {
   width: 100%;
 }
 
+/* Thu nhỏ grid poster từ 250px -> 180px và khoảng cách gap từ 30px -> 20px */
 .movies-grid {
   list-style: none;
   padding: 0;
   margin: 0;
   display: grid;
-  /* Tự động xếp nhiều cột 200px trên 1 dòng */
-  grid-template-columns: repeat(auto-fill, 250px);
+  grid-template-columns: repeat(auto-fill, 185px);
   justify-content: center;
-  gap: 30px;
+  gap: 20px;
   width: 100%;
   box-sizing: border-box;
 }
 
-/* Từng card phim */
+/* Card phim */
 .movie-card {
   background: var(--code-bg);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 10px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -148,7 +161,11 @@ p {
   box-shadow: var(--shadow);
   transition: transform 0.2s ease;
   width: 100%;
-  margin: 0; 
+  margin: 0;
+}
+
+.movie-card:hover {
+  transform: translateY(-4px);
 }
 
 .movie-card img {
@@ -159,37 +176,42 @@ p {
 }
 
 .movie-info {
-  padding: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .movie-info h3 {
-  font-size: 20px;
+  font-size: 16px;
   color: var(--text-h);
-  margin: 0 0 6px;
+  margin: 0 0 2px;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
 }
 
 .movie-info p {
-  font-size: 15px;
-  margin: 4px 0;
+  font-size: 14px;
+  color: var(--text);
+  margin: 2px 0;
+
 }
 
 .filter-section {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   justify-content: center;
-  margin: 10px 0 20px;
+  margin: 6px 0 12px;
 }
 
 .filter-btn {
   background: var(--code-bg);
   color: var(--text);
   border: 1px solid var(--border);
-  padding: 8px 18px;
-  border-radius: 20px;
-  font-size: 14px;
+  padding: 6px 14px;
+  border-radius: 18px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -207,20 +229,21 @@ p {
   box-shadow: 0 4px 12px var(--accent-bg);
 }
 
+/* Thanh điều hướng Tab */
 .tab-nav {
   display: flex;
   justify-content: center;
-  gap: 16px;
-  margin: 20px 0;
+  gap: 12px;
+  margin: 10px 0;
 }
 
 .tab-btn {
   background: #1e1e24;
   color: #fff;
   border: 1px solid #333;
-  padding: 10px 24px;
-  border-radius: 25px;
-  font-size: 16px;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -231,19 +254,22 @@ p {
 }
 
 .tab-btn.active {
-  background: #9A7197;
-  border-color: #886176;
-  box-shadow: 0 4px 14px #7C5869;
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px var(--accent-bg);
 }
 
+/* Nút bấm Watchlist */
 .watchlist-btn {
   background-color: var(--accent);
   color: #fff;
-  margin-top: 8px;
-  padding: 6px 12px;
+  margin-top: 6px;
+  padding: 6px 10px;
   border: none;
   border-radius: 6px;
+  font-size: 13px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .watchlist-btn:hover {
@@ -253,14 +279,9 @@ p {
 .watchlist-btn.remove-btn {
   background-color: #ff334b;
   color: #fff;
-  margin-top: 8px;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  padding: 3px 5px;
 }
 
 .watchlist-btn.remove-btn:hover {
   background-color: #d61c33;
 }
-
