@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Header from './Component/Header.jsx'
 import Search from './Component/Search.jsx'
+import Loading from './Component/Loading.jsx'
 
 function App() {
   const API_BASE_URL = 'https://mykdramalibrary.onrender.com'
@@ -11,9 +12,11 @@ function App() {
 
   const [currentTab, setCurrentTab] = useState('home')
   const [watchlist, setWatchlist] = useState([])
+  const [loading, setLoading] = useState(true);
 
   // 1. Get Kdrama list from TMDB API
   const fetchMovies = async (query = '') => {
+    setLoading(true)
     try {
       const endpoint = `${API_BASE_URL}/api/dramas?query=${encodeURIComponent(query)}&sortBy=${sortBy}`
       const response = await fetch(endpoint)
@@ -23,11 +26,14 @@ function App() {
       setMoviesList(data.results || [])
     } catch (error) {
       console.error('Error fetching dramas:', error)
+    } finally {
+      setLoading(false)
     }
   }
 
   // 2. Get Watchlist from MongoDB
   const fetchWatchlist = async () => {
+    setLoading(true)
     try {
       const res = await fetch(`${API_BASE_URL}/api/watchlist`)
       if (res.ok) {
@@ -36,11 +42,14 @@ function App() {
       }
     } catch (err) {
       console.error('Server error when fetching watchlist:', err)
+    } finally {
+      setLoading(false)
     }
   }
 
   // 3. Add a drama to Watchlist
   const handleAddToWatchlist = async (drama) => {
+    setLoading(true)
     try {
       const response = await fetch(`${API_BASE_URL}/api/watchlist`, {
         method: 'POST',
@@ -68,6 +77,7 @@ function App() {
 
   // 4. Delete a drama from Watchlist
   const handleRemoveFromWatchlist = async (dramaId) => {
+    setLoading(true)
     try {
       const res = await fetch(`${API_BASE_URL}/api/watchlist/${dramaId}`, {
         method: 'DELETE',
@@ -77,6 +87,8 @@ function App() {
       }
     } catch (err) {
       console.error('Server error when removing drama from watchlist:', err)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -141,6 +153,9 @@ function App() {
           </div>
 
           <section className="movies-section">
+            {loading ? (
+              <Loading message="Loading, please wait..." />
+            ) : (
             <ul className="movies-grid">
               {moviesList.map((movie) => (
                 <li className="movie-card" key={movie.id}>
@@ -166,6 +181,7 @@ function App() {
                 </li>
               ))}
             </ul>
+            )}
           </section>
         </>
       )}
