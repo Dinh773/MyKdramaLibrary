@@ -6,8 +6,8 @@ Une application web Fullstack (MERN) moderne et réactive permettant de découvr
 
 ## 🚀 Démo en ligne
 
-- **Frontend (Vercel) :** [https://votre-app.vercel.app](https://votre-app.vercel.app)
-- **Backend API (Render) :** [https://votre-backend.onrender.com](https://votre-backend.onrender.com)
+- **Frontend (Vercel) :** [https://my-kdrama-library.vercel.app](https://my-kdrama-library.vercel.app)
+- **Backend API (Render) :**
 
 ---
 
